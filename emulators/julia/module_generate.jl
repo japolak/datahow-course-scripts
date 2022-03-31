@@ -1,3 +1,4 @@
+#module module_generate
 # declare modules
 using DifferentialEquations
 using DataFrames
@@ -113,41 +114,49 @@ function generate_data(var_lims, amm_runs, filename="mytable_data.csv")
         return t, y
     end
 
-    num_center_points = 2
-    model_param_combinations = generate_doe(amm_runs, var_lims, num_center_points)
+    if amm_runs==1
+	model_param = (mu_g_max, mu_d_max, K_g_Glc, K_I_Lac, K_d_Lac, k_Glc, k_Lac, k_Prod)
+	i = 1
+	col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
+	local t, y = predict_chrom_phase(model_param, feed_start, feed_end, Glc_feed_rate, Glc_0, VCD_0)
+	res = [t'; y]'
+	final_df = DataFrame(res, col_names)
+    else   
+    	num_center_points = 2
+    	model_param_combinations = generate_doe(amm_runs, var_lims, num_center_points)
+    	i = 1
+    	col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
 
-    i = 1
-    col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
-    for i = 1:amm_runs
+    	for i = 1:amm_runs
+            mu_g_max = model_param_combinations[i, 1]
+            mu_d_max = model_param_combinations[i, 2]
+            K_g_Glc = model_param_combinations[i, 3]
+            K_I_Lac = model_param_combinations[i, 4]
+            K_d_Lac = model_param_combinations[i, 5]
+            k_Glc = model_param_combinations[i, 6]
+            k_Lac = model_param_combinations[i, 7]
+            k_Prod = model_param_combinations[i, 8]
+            feed_start = model_param_combinations[i, 9]
+            feed_end = model_param_combinations[i, 10]
+            Glc_feed_rate = model_param_combinations[i, 11]
+            Glc_0 = model_param_combinations[i, 12]
+            VCD_0 = model_param_combinations[i, 13]
 
+            model_param = (mu_g_max, mu_d_max, K_g_Glc, K_I_Lac, K_d_Lac, k_Glc, k_Lac, k_Prod)
 
-        mu_g_max = model_param_combinations[i, 1]
-        mu_d_max = model_param_combinations[i, 2]
-        K_g_Glc = model_param_combinations[i, 3]
-        K_I_Lac = model_param_combinations[i, 4]
-        K_d_Lac = model_param_combinations[i, 5]
-        k_Glc = model_param_combinations[i, 6]
-        k_Lac = model_param_combinations[i, 7]
-        k_Prod = model_param_combinations[i, 8]
-        feed_start = model_param_combinations[i, 9]
-        feed_end = model_param_combinations[i, 10]
-        Glc_feed_rate = model_param_combinations[i, 11]
-        Glc_0 = model_param_combinations[i, 12]
-        VCD_0 = model_param_combinations[i, 13]
+            local t, y = predict_chrom_phase(model_param, feed_start, feed_end, Glc_feed_rate, Glc_0, VCD_0)
+            res = [t'; y]'
+            new_df = DataFrame(res, col_names)
 
-        model_param = (mu_g_max, mu_d_max, K_g_Glc, K_I_Lac, K_d_Lac, k_Glc, k_Lac, k_Prod)
-
-        local t, y = predict_chrom_phase(model_param, feed_start, feed_end, Glc_feed_rate, Glc_0, VCD_0)
-        res = [t'; y]'
-        new_df = DataFrame(res, col_names)
-
-        if i == 1
-            final_df = new_df
-        else
-            global final_df = vcat(final_df, new_df)
-        end
-        i += 1
+            if i == 1
+		final_df = new_df
+            else
+            	global final_df = vcat(final_df, new_df)
+            end
+	    i += 1
+    	end
     end
+
     efg = open(filename, "w")
     CSV.write(filename, final_df)
 
