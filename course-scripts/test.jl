@@ -1,6 +1,5 @@
 # declare modules
 using DifferentialEquations
-using Plots
 using DataFrames
 using CSV
 using LatinHypercubeSampling
