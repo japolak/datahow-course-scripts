@@ -117,7 +117,6 @@ function generate_data(var_lims, amm_runs, filename="mytable_data.csv")
     model_param_combinations = generate_doe(amm_runs, var_lims, num_center_points)
 
     i = 1
-    # amm_runs = 8
     col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
     for i = 1:amm_runs
 
