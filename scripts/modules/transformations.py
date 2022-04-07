@@ -47,10 +47,4 @@ def owu_from_csv(csv_path: str) -> pd.MultiIndex:
 
     plt.x_axis
 
-def bwu_from_owu(owu) -> pd.DataFrame
-    """
-    Generates and batch-wise unfolded matrix from the owu unfolded matrix. 
 
-    ""
-
-    return owu
