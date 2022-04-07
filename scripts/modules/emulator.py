@@ -90,7 +90,9 @@ def generate_doe(num_exp: int, var_lims: dict, num_center_points=1, seed=123):
     doe_var_idx = np.cumsum(doe_var) - 1
 
     # sample points in the latin hypercube
-    doe_plan = pyDOE2.lhs(sum(doe_var), samples=num_samples, criterion="c")
+    doe_plan = pyDOE2.lhs(
+        sum(doe_var), samples=num_samples, criterion="c"
+    )  # TODO : make it use a random seed
 
     # fill remaining unscaled vars
     doe_unscaled = np.ones([num_exp, num_vars]) * 0.5
@@ -105,6 +107,8 @@ def generate_doe(num_exp: int, var_lims: dict, num_center_points=1, seed=123):
             doe_scaled[:, i] = (
                 doe_unscaled[:, i] * (var_lims[k][1] - var_lims[k][0]) + var_lims[k][0]
             )
+        else:
+            doe_scaled[:, i] = var_lims[k]
 
     return doe_scaled
 
@@ -113,9 +117,6 @@ def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
 
     num_center_points = 1
     model_param_combinations = generate_doe(num_runs, var_lims, num_center_points)
-    doe_design = pd.DataFrame(
-        model_param_combinations, columns=[k for k in var_lims.keys()]
-    )
 
     col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
     owu_df = pd.DataFrame(columns=col_names)
@@ -125,17 +126,16 @@ def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
         mu_g_max = model_param_combinations[i, 0]
         mu_d_max = model_param_combinations[i, 1]
         K_g_Glc = model_param_combinations[i, 2]
-        K_g_Lac = model_param_combinations[i, 3]
-        K_I_Lac = model_param_combinations[i, 4]
-        K_d_Lac = model_param_combinations[i, 5]
-        k_Glc = model_param_combinations[i, 6]
-        k_Lac = model_param_combinations[i, 7]
-        k_Prod = model_param_combinations[i, 8]
-        feed_start = model_param_combinations[i, 9]
-        feed_end = model_param_combinations[i, 10]
-        Glc_feed_rate = model_param_combinations[i, 11]
-        Glc_0 = model_param_combinations[i, 12]
-        VCD_0 = model_param_combinations[i, 13]
+        K_I_Lac = model_param_combinations[i, 3]
+        K_d_Lac = model_param_combinations[i, 4]
+        k_Glc = model_param_combinations[i, 5]
+        k_Lac = model_param_combinations[i, 6]
+        k_Prod = model_param_combinations[i, 7]
+        feed_start = model_param_combinations[i, 8]
+        feed_end = model_param_combinations[i, 9]
+        Glc_feed_rate = model_param_combinations[i, 10]
+        Glc_0 = model_param_combinations[i, 11]
+        VCD_0 = model_param_combinations[i, 12]
 
         model_param = (
             mu_g_max,
