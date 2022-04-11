@@ -1,5 +1,6 @@
 emulators/
+.vscode/
 *.swp
 *.pyc
 *.vscode
-.vscode/
+*.json
