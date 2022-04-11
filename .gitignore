@@ -4,3 +4,4 @@ emulators/
 *.pyc
 *.vscode
 *.json
+.vscode/settings.json
