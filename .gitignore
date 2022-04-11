@@ -1,3 +1,4 @@
 emulators/
 *.swp
 *.pyc
+*.vscode
