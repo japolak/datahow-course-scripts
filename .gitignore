@@ -1,7 +1,7 @@
 emulators/
 .vscode/
+.vscode/settings.json
 *.swp
 *.pyc
 *.vscode
 *.json
-.vscode/settings.json
