@@ -1,7 +1,8 @@
 
 # DataHow Teaching Course Scripts
 
-Guide:
+Guide to opeining notebooks in google colab.
+
 1. Open https://colab.research.google.com/
 2. You will have already open "Welcome to Colaboratory" notebook
 3. Open notebook (File -> Open Notebook) in top left or "Crtl/Cmd + O"
