@@ -90,7 +90,8 @@ def generate_doe(num_exp: int, var_lims: dict, num_center_points=1, seed=123):
     doe_var_idx = np.cumsum(doe_var) - 1
 
     # sample points in the latin hypercube
-    doe_plan = pyDOE2.lhs(sum(doe_var), samples=num_samples, criterion="c")
+    lhsampler = scipy.stats.qmc.LatinHypercube(d=sum(doe_var), centered=True, seed=rng)
+    doe_plan = lhsampler.random(n=num_samples)
 
     # fill remaining unscaled vars
     doe_unscaled = np.ones([num_exp, num_vars]) * 0.5
@@ -105,6 +106,8 @@ def generate_doe(num_exp: int, var_lims: dict, num_center_points=1, seed=123):
             doe_scaled[:, i] = (
                 doe_unscaled[:, i] * (var_lims[k][1] - var_lims[k][0]) + var_lims[k][0]
             )
+        else:
+            doe_scaled[:,i]=var_lims[k]
 
     return doe_scaled
 
