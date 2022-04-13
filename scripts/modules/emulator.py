@@ -127,17 +127,16 @@ def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
         mu_g_max = model_param_combinations[i, 0]
         mu_d_max = model_param_combinations[i, 1]
         K_g_Glc = model_param_combinations[i, 2]
-        K_g_Lac = model_param_combinations[i, 3]
-        K_I_Lac = model_param_combinations[i, 4]
-        K_d_Lac = model_param_combinations[i, 5]
-        k_Glc = model_param_combinations[i, 6]
-        k_Lac = model_param_combinations[i, 7]
-        k_Prod = model_param_combinations[i, 8]
-        feed_start = model_param_combinations[i, 9]
-        feed_end = model_param_combinations[i, 10]
-        Glc_feed_rate = model_param_combinations[i, 11]
-        Glc_0 = model_param_combinations[i, 12]
-        VCD_0 = model_param_combinations[i, 13]
+        K_I_Lac = model_param_combinations[i, 3]
+        K_d_Lac = model_param_combinations[i, 4]
+        k_Glc = model_param_combinations[i, 5]
+        k_Lac = model_param_combinations[i, 6]
+        k_Prod = model_param_combinations[i, 7]
+        feed_start = model_param_combinations[i, 8]
+        feed_end = model_param_combinations[i, 9]
+        Glc_feed_rate = model_param_combinations[i, 10]
+        Glc_0 = model_param_combinations[i, 11]
+        VCD_0 = model_param_combinations[i, 12]
 
         model_param = (
             mu_g_max,
@@ -161,4 +160,5 @@ def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
         )
 
     owu_df.to_csv(filename, index=False)
+
     return owu_df
