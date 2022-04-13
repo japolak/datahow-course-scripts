@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import scipy.stats
 import scipy.integrate
-import pyDOE2
 
 
 def chrome_ode(t, y, p):
