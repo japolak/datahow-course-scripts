@@ -58,7 +58,7 @@ def predict_chrom_phase(model_param, process_param):
         k_Prod,
         24.0 * feed_start,
         24.0 * feed_end,
-        Glc_feed_rate,
+        Glc_feed_rate /24,
     )
 
     # integrates equations
