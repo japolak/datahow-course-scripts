@@ -111,7 +111,7 @@ def generate_doe(num_exp: int, var_lims: dict, num_center_points=1, seed=123):
     return doe_scaled
 
 
-def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
+def generate_data(var_lims, num_runs, filename="OWUExperiments-test.csv"):
 
     num_center_points = 1
     model_param_combinations = generate_doe(num_runs, var_lims, num_center_points)
@@ -160,5 +160,7 @@ def generate_data(var_lims, num_runs, filename="mytable_data.csv"):
         )
 
     owu_df.to_csv(filename, index=False)
+    
+    doe_design.to_csv(filename.replace(".csv","_doe_scaled.csv"),index=False)
 
     return owu_df
