@@ -119,7 +119,7 @@ def generate_data(var_lims, num_runs, filename="OWUExperiments-test.csv"):
         model_param_combinations, columns=[k for k in var_lims.keys()]
     )
 
-    col_names = ["timestamps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
+    col_names = ["timesteps", "X:VCD", "X:Glc", "X:Lac", "X:Titer"]
     owu_df = pd.DataFrame(columns=col_names)
 
     i = 0
