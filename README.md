@@ -1,7 +1,7 @@
 
 # DataHow Teaching Course Scripts
 
-Guide to opeining notebooks in google colab.
+### Guide to opeining notebooks in google colab.
 
 1. Open https://colab.research.google.com/
 2. You will have already open "Welcome to Colaboratory" notebook
@@ -12,7 +12,7 @@ Guide to opeining notebooks in google colab.
 7. Open the first "00_Process_Characterization.ipynb" notebook.
 
 
-Course Structure:
+### Course Structure:
 
 Part 1:
 
