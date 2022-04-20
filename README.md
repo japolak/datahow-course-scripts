@@ -15,11 +15,17 @@ Guide to opeining notebooks in google colab.
 Course Structure:
 
 Part 1:
+
 00_Process_Characterization
+
 01_PCA
+
 02_PLS_RSM
 
 Part 2:
+
 03_Gaussian_Processes
+
 04_Hybrid_Model
+
 05_Bayesian_Optimization
